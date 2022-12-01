@@ -1,9 +1,17 @@
-import { Box } from "./Box";
+import { Box } from "styles";
+import { Component } from "react";
+import { ContactForm, ContactList } from "components";
 
-export const App = () => {
+export class App extends Component {  
+
+  render() {
   return (
-    <Box height="100vh" display="flex" justifyContent="center" alignItems="center" color="text" fontSize={5} as="header">
-      React homework template
-    </Box>
-  );
+    <Box>
+      <h1>Phonebook</h1>
+      <ContactForm />
+      <h2>Contacts</h2>
+      <ContactList />
+      </Box>
+    );
+}
 };
