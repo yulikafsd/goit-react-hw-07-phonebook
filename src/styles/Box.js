@@ -10,6 +10,7 @@ import {
   border,
   position,
   typography,
+  buttonStyle,
 } from 'styled-system';
 
 export const Box = styled('div')(
@@ -21,5 +22,6 @@ export const Box = styled('div')(
   background,
   border,
   position,
-  typography
+  typography,
+  buttonStyle
 );
