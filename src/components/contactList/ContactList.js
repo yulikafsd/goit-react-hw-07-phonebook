@@ -13,6 +13,7 @@ export class ContactList extends Component {
         id: PropTypes.string.isRequired,
       })
     ),
+    onClick: PropTypes.func.isRequired,
   };
 
   handleClick = id => {
