@@ -1,6 +1,7 @@
 import { nanoid } from 'nanoid';
 import { Box } from 'styles';
 import { Label, Input } from './ContactForm.styled';
+import PropTypes from 'prop-types';
 
 export const Filter = ({ value, onChange }) => {
   const filterInputId = nanoid();
@@ -12,11 +13,15 @@ export const Filter = ({ value, onChange }) => {
         name="filter"
         pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
         title="Name may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan"
-        required
         value={value}
         onChange={onChange}
         id={filterInputId}
       />
     </Box>
   );
+};
+
+Filter.propTypes = {
+  value: PropTypes.string.isRequired,
+  onChange: PropTypes.func.isRequired,
 };

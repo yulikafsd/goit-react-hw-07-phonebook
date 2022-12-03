@@ -1,4 +1,5 @@
 import { Component } from 'react';
+import PropTypes from 'prop-types';
 import { Box } from 'styles';
 import { Item, Text, Button } from 'components/ContactList.styled';
 import { AiFillCloseCircle } from 'react-icons/ai';
@@ -32,3 +33,13 @@ export class ContactList extends Component {
     );
   }
 }
+
+ContactList.propTypes = {
+  contacts: PropTypes.arrayOf(
+    PropTypes.exact({
+      name: PropTypes.string.isRequired,
+      number: PropTypes.string.isRequired,
+      id: PropTypes.string.isRequired,
+    })
+  ),
+};

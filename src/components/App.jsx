@@ -2,7 +2,7 @@ import { Box } from "styles";
 import { Component } from "react";
 import { ContactForm, ContactList, Filter } from "components";
 
-export class App extends Component {  
+export class App extends Component {
 
   state = {
     contacts: [
@@ -49,7 +49,6 @@ export class App extends Component {
   render() {
     const { filter } = this.state;
     const { onSubmitForm, onFilterChange, filterNames, onClickDelete } = this;
- 
     const searchResults = filterNames();
     
   return (
