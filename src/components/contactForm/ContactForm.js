@@ -9,6 +9,10 @@ const initialState = {
 };
 
 export class ContactForm extends Component {
+  static propTypes = {
+    onSubmit: PropTypes.func.isRequired,
+  };
+
   state = { ...initialState };
 
   nameInputId = nanoid();
@@ -61,7 +65,3 @@ export class ContactForm extends Component {
     );
   }
 }
-
-ContactForm.propTypes = {
-  onSubmit: PropTypes.func.isRequired,
-};

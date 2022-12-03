@@ -5,6 +5,16 @@ import { AiFillCloseCircle } from 'react-icons/ai';
 import { Item, Text, Button } from 'components/contactList';
 
 export class ContactList extends Component {
+  static propTypes = {
+    contacts: PropTypes.arrayOf(
+      PropTypes.exact({
+        name: PropTypes.string.isRequired,
+        number: PropTypes.string.isRequired,
+        id: PropTypes.string.isRequired,
+      })
+    ),
+  };
+
   handleClick = id => {
     this.props.onClick(id);
   };
@@ -33,13 +43,3 @@ export class ContactList extends Component {
     );
   }
 }
-
-ContactList.propTypes = {
-  contacts: PropTypes.arrayOf(
-    PropTypes.exact({
-      name: PropTypes.string.isRequired,
-      number: PropTypes.string.isRequired,
-      id: PropTypes.string.isRequired,
-    })
-  ),
-};

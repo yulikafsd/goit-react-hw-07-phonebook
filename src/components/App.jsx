@@ -22,7 +22,7 @@ export class App extends Component {
     const isContact = contacts.find(contact =>
       contact.name.toLowerCase() === normalisedNewContactName);
     isContact
-      ? alert(`Contact with this name already exists. Please, choose another name`)
+      ? alert(`Contact ${newContact.name} already exists. Please, choose another name`)
       : this.setState({ contacts: [...contacts, newContact] });
   }
 
