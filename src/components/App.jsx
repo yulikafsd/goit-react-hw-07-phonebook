@@ -14,9 +14,14 @@ export class App extends Component {
     filter: '',
   }
   
-  onSubmitForm = (contact) => {
+  onSubmitForm = (newContact) => {
     const { contacts } = this.state;
-    this.setState({contacts: [...contacts, contact]});
+    const normalisedNewContactName = newContact.name.toLowerCase();
+    const isContact = contacts.find(contact =>
+      contact.name.toLowerCase() === normalisedNewContactName);
+    isContact
+      ? alert(`Contact with this name already exists. Please, choose another name`)
+      : this.setState({ contacts: [...contacts, newContact] });
   }
 
   onFilterChange = (e) => {
