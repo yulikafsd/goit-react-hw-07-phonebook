@@ -26,7 +26,7 @@ export const Button = styled.button`
   border-radius: 25px;
   color: #fff;
   background-color: #00bcd5;
-  transition: 250ms ease-in-out;
+  transition: all 250ms ease-in-out;
 
   &:hover {
     background-color: #00a6bc;
