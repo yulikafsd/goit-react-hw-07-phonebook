@@ -1,6 +1,6 @@
 import { nanoid } from 'nanoid';
 import { Box } from 'styles';
-import { Label, Input } from './ContactForm.styled';
+import { Label, Input } from 'components/filter';
 import PropTypes from 'prop-types';
 
 export const Filter = ({ value, onChange }) => {

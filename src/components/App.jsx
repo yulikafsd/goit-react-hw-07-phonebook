@@ -1,6 +1,8 @@
 import { Box } from "styles";
 import { Component } from "react";
-import { ContactForm, ContactList, Filter } from "components";
+import { ContactForm } from "components/contactForm";
+import { ContactList } from "components/contactList";
+import { Filter } from "components/filter";
 
 export class App extends Component {
 

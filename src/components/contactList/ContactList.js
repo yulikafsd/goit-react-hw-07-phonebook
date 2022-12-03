@@ -1,8 +1,8 @@
 import { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Box } from 'styles';
-import { Item, Text, Button } from 'components/ContactList.styled';
 import { AiFillCloseCircle } from 'react-icons/ai';
+import { Item, Text, Button } from 'components/contactList';
 
 export class ContactList extends Component {
   handleClick = id => {
