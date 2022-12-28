@@ -1,4 +1,3 @@
-import { Component } from 'react';
 import PropTypes from 'prop-types';
 import { nanoid } from 'nanoid';
 import {
@@ -11,6 +10,7 @@ import { Formik, Form } from 'formik';
 import * as yup from 'yup';
 
 const initialValues = {
+  id: '',
   name: '',
   number: '',
 };
@@ -32,38 +32,34 @@ const schema = yup.object().shape({
     ),
 });
 
-export class ContactForm extends Component {
-  static propTypes = {
-    onSubmit: PropTypes.func.isRequired,
-  };
+export function ContactForm({ onSubmit }) {
+  const nameInputId = nanoid();
+  const numberInputId = nanoid();
 
-  nameInputId = nanoid();
-  numberInputId = nanoid();
-
-  handleSubmit = (values, { resetForm }) => {
-    this.props.onSubmit({ ...values, id: nanoid() });
+  const handleSubmit = (values, { resetForm }) => {
+    onSubmit({ ...values, id: nanoid() });
     resetForm();
   };
 
-  render() {
-    const { handleSubmit, nameInputId, numberInputId } = this;
-
-    return (
-      <Formik
-        initialValues={initialValues}
-        onSubmit={handleSubmit}
-        validationSchema={schema}
-      >
-        <Form>
-          <Label htmlFor={nameInputId}>Name</Label>
-          <StyledField type="text" name="name" required id={nameInputId} />
-          <StyledError name="name" component="div" />
-          <Label htmlFor={numberInputId}>Number</Label>
-          <StyledField type="tel" name="number" required id={numberInputId} />
-          <StyledError name="number" component="div" />
-          <Button type="submit">Add Contact</Button>
-        </Form>
-      </Formik>
-    );
-  }
+  return (
+    <Formik
+      initialValues={initialValues}
+      onSubmit={handleSubmit}
+      validationSchema={schema}
+    >
+      <Form>
+        <Label htmlFor={nameInputId}>Name</Label>
+        <StyledField type="text" name="name" required id={nameInputId} />
+        <StyledError name="name" component="div" />
+        <Label htmlFor={numberInputId}>Number</Label>
+        <StyledField type="tel" name="number" required id={numberInputId} />
+        <StyledError name="number" component="div" />
+        <Button type="submit">Add Contact</Button>
+      </Form>
+    </Formik>
+  );
 }
+
+ContactForm.propTypes = {
+  onSubmit: PropTypes.func.isRequired,
+};

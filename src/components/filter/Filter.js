@@ -3,8 +3,9 @@ import { Box } from 'styles';
 import { Label, Input } from 'components/filter';
 import PropTypes from 'prop-types';
 
-export const Filter = ({ value, onChange }) => {
+export function Filter({ value, onChange }) {
   const filterInputId = nanoid();
+
   return (
     <Box as="form" onSubmit={e => e.preventDefault()}>
       <Label htmlFor={filterInputId}>Find contact by name:</Label>
@@ -19,7 +20,7 @@ export const Filter = ({ value, onChange }) => {
       />
     </Box>
   );
-};
+}
 
 Filter.propTypes = {
   value: PropTypes.string.isRequired,
