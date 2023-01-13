@@ -1,6 +1,6 @@
-import { Box } from 'styles';
+import { Box } from 'styles/Box';
 import { AiFillCloseCircle } from 'react-icons/ai';
-import { Item, Text, Button } from 'components/contactList';
+import { Item, Text, Button } from 'components/contactList/ContactList.styled';
 import { getContacts, getFilter } from 'redux/selectors';
 import { deleteContact } from 'redux/contactsSlice';
 import { useSelector, useDispatch } from 'react-redux';

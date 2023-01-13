@@ -1,6 +1,6 @@
 import { nanoid } from 'nanoid';
-import { Box } from 'styles';
-import { Label, Input } from 'components/filter';
+import { Box } from 'styles/Box';
+import { Label, Input } from 'components/contactForm/ContactForm.styled';
 import { useDispatch, useSelector } from 'react-redux';
 import { changeFilter } from 'redux/filterSlice';
 import { getFilter } from 'redux/selectors';

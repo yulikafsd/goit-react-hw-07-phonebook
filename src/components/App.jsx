@@ -1,7 +1,7 @@
-import { Box } from "styles";
-import { ContactForm } from "components/contactForm";
-import { ContactList } from "components/contactList";
-import { Filter } from "components/filter";
+import { Box } from "styles/Box";
+import { ContactForm } from "components/contactForm/ContactForm";
+import { ContactList } from "components/contactList/ContactList";
+import { Filter } from "components/filter/Filter";
 
 export function App() {
     

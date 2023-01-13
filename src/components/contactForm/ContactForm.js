@@ -4,7 +4,7 @@ import {
   StyledField,
   StyledError,
   Button,
-} from 'components/contactForm';
+} from 'components/contactForm/ContactForm.styled.js';
 import { Formik, Form } from 'formik';
 import * as yup from 'yup';
 import { useDispatch, useSelector } from 'react-redux';

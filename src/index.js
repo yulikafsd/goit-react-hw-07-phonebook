@@ -2,8 +2,8 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { App } from 'components/App';
 import { ThemeProvider } from 'styled-components';
-import { theme } from 'constants';
-import { GlobalStyle } from 'styles';
+import { theme } from 'constants/theme';
+import { GlobalStyle } from 'styles/GlobalStyles';
 import { Provider } from 'react-redux';
 import { store } from 'redux/store';
 
