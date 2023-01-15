@@ -1,14 +1,14 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { checkContactsInitialState } from './constants';
+import { contactsInitialState } from './constants';
 
 export const contactsSlice = createSlice({
   name: 'contacts',
-  initialState: checkContactsInitialState,
+  initialState: contactsInitialState,
   reducers: {
     addContact: {
       reducer(state, action) {
         state.push(action.payload);
-        localStorage.setItem('contacts', JSON.stringify(state));
+        // localStorage.setItem('contacts', JSON.stringify(state));
       },
       prepare(contact) {
         return {
@@ -22,7 +22,7 @@ export const contactsSlice = createSlice({
     },
     deleteContact(state, action) {
       const newState = state.filter(contact => contact.id !== action.payload);
-      localStorage.setItem('contacts', JSON.stringify(newState));
+      // localStorage.setItem('contacts', JSON.stringify(newState));
       return newState;
     },
   },
