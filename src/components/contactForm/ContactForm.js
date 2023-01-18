@@ -1,4 +1,3 @@
-import { nanoid } from 'nanoid';
 import {
   Label,
   StyledField,
@@ -8,8 +7,9 @@ import {
 import { Formik, Form } from 'formik';
 import * as yup from 'yup';
 import { useDispatch, useSelector } from 'react-redux';
-import { getContacts } from 'redux/selectors';
-import { addContact } from 'redux/contactsSlice';
+import { selectContacts } from 'redux/selectors';
+import { addContact } from 'redux/operations';
+import { nanoid } from 'nanoid';
 
 const initialValues = {
   id: '',
@@ -37,11 +37,10 @@ const schema = yup.object().shape({
 export const ContactForm = () => {
   const nameInputId = nanoid();
   const numberInputId = nanoid();
-  const contacts = useSelector(getContacts);
+  const contacts = useSelector(selectContacts);
   const dispatch = useDispatch();
 
   const handleSubmit = (values, { resetForm }) => {
-    console.log(values);
     const isContact = contacts.some(
       contact => contact.name.toLowerCase() === values.name.toLowerCase().trim()
     );
@@ -54,7 +53,6 @@ export const ContactForm = () => {
       const newContact = {
         name: values.name.trim(),
         number: values.number.trim(),
-        id: nanoid(),
       };
       dispatch(addContact(newContact)) && resetForm();
     }
