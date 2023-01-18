@@ -41,15 +41,23 @@ export const ContactForm = () => {
   const dispatch = useDispatch();
 
   const handleSubmit = (values, { resetForm }) => {
-    const isContact = contacts.find(
+    console.log(values);
+    const isContact = contacts.some(
       contact => contact.name.toLowerCase() === values.name.toLowerCase().trim()
     );
-    isContact
-      ? alert(
-          `Contact ${values.name} already exists. Please, choose another name`
-        )
-      : dispatch(addContact({ ...values, id: nanoid() }));
-    resetForm();
+    if (isContact) {
+      alert(
+        `Contact ${values.name} already exists. Please, choose another name`
+      );
+      return;
+    } else {
+      const newContact = {
+        name: values.name.trim(),
+        number: values.number.trim(),
+        id: nanoid(),
+      };
+      dispatch(addContact(newContact)) && resetForm();
+    }
   };
 
   return (

@@ -14,8 +14,7 @@ export const Filter = () => {
     const { value } = e.currentTarget;
 
     if (value && value.length > 0) {
-      const normalisedValue = value.toLowerCase();
-      dispatch(changeFilter(normalisedValue));
+      dispatch(changeFilter(value));
     } else {
       dispatch(changeFilter(''));
     }
@@ -32,6 +31,7 @@ export const Filter = () => {
         onChange={handleChange}
         value={filter}
         id={filterInputId}
+        autoComplete="off"
       />
     </Box>
   );

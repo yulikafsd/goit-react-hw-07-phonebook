@@ -14,7 +14,9 @@ export function ContactList() {
     if (filter.trim().length === 0) {
       return contacts;
     } else {
-      return contacts.filter(({ name }) => name.toLowerCase().includes(filter));
+      return contacts.filter(({ name }) =>
+        name.toLowerCase().includes(filter.trim().toLowerCase())
+      );
     }
   };
 
