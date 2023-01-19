@@ -24,7 +24,7 @@ export function App() {
       <ContactForm />
       <h2>Contacts</h2>
       <Filter />
-      {isLoading && <p>Loading...</p>}
+      {isLoading && <p>Loading contacts...</p>}
       {error && <p>Oops, {error}. Try reload the page.</p>}
       {!isLoading && !error && <ContactList />}
       <ToastContainer/>
