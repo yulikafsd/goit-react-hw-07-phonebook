@@ -14,16 +14,13 @@ export const contactsSlice = createSlice({
   initialState: {
     items: [],
     isLoading: false,
+    isAdding: false,
+    isDeleting: false,
     error: null,
   },
   extraReducers: {
     [fetchContacts.pending]: handlePending,
-    [addContact.pending]: handlePending,
-    [deleteContact.pending]: handlePending,
-
     [fetchContacts.rejected]: handleRejected,
-    [addContact.rejected]: handleRejected,
-    [deleteContact.rejected]: handleRejected,
 
     [fetchContacts.fulfilled](state, action) {
       state.error = null;
@@ -31,19 +28,35 @@ export const contactsSlice = createSlice({
       state.items = action.payload;
     },
 
-    [addContact.fulfilled](state, action) {
-      state.error = null;
-      state.isLoading = false;
-      state.items = [...state.items, action.payload];
+    [deleteContact.pending](state) {
+      state.isDeleting = true;
+    },
+
+    [deleteContact.rejected](state, action) {
+      state.isDeleting = false;
+      state.error = action.payload;
     },
 
     [deleteContact.fulfilled](state, action) {
       state.error = null;
-      state.isLoading = false;
       const index = state.items.findIndex(
         contact => contact.id === action.payload
       );
       state.items.splice(index, 1);
+      state.isDeleting = false;
+    },
+
+    [addContact.pending](state) {
+      state.isAdding = true;
+    },
+    [addContact.fulfilled](state, action) {
+      state.error = null;
+      state.items = [...state.items, action.payload];
+      state.isAdding = false;
+    },
+    [addContact.rejected](state, action) {
+      state.isAdding = false;
+      state.error = action.payload;
     },
   },
 });

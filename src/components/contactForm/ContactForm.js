@@ -5,11 +5,12 @@ import {
   Button,
 } from 'components/contactForm/ContactForm.styled.js';
 import { Formik, Form } from 'formik';
-import * as yup from 'yup';
 import { useDispatch, useSelector } from 'react-redux';
-import { selectContacts, selectError } from 'redux/selectors';
+import { selectContacts, selectError, selectIsAdding } from 'redux/selectors';
 import { addContact } from 'redux/operations';
 import { nanoid } from 'nanoid';
+import { schema } from 'constants/schema';
+import { changeNameMessage } from 'constants/notifications';
 
 const initialValues = {
   id: '',
@@ -17,28 +18,12 @@ const initialValues = {
   number: '',
 };
 
-const schema = yup.object().shape({
-  name: yup
-    .string()
-    .required()
-    .matches(
-      /^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$/,
-      "Name may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan"
-    ),
-  number: yup
-    .string()
-    .required()
-    .matches(
-      /\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}/,
-      'Phone number must be digits and can contain spaces, dashes, parentheses and can start with +'
-    ),
-});
-
 export const ContactForm = () => {
   const nameInputId = nanoid();
   const numberInputId = nanoid();
   const contacts = useSelector(selectContacts);
   const error = useSelector(selectError);
+  const isAdding = useSelector(selectIsAdding);
   const dispatch = useDispatch();
 
   const handleSubmit = (values, { resetForm }) => {
@@ -46,9 +31,7 @@ export const ContactForm = () => {
       contact => contact.name.toLowerCase() === values.name.toLowerCase().trim()
     );
     if (isContact) {
-      alert(
-        `Contact ${values.name} already exists. Please, choose another name`
-      );
+      changeNameMessage(values.name);
       return;
     } else {
       const newContact = {
@@ -72,7 +55,9 @@ export const ContactForm = () => {
         <Label htmlFor={numberInputId}>Number</Label>
         <StyledField type="tel" name="number" required id={numberInputId} />
         <StyledError name="number" component="div" />
-        <Button type="submit">Add Contact</Button>
+        <Button type="submit" disabled={isAdding}>
+          {isAdding ? 'Adding...' : 'Add Contact'}
+        </Button>
       </Form>
     </Formik>
   );

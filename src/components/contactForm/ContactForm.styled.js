@@ -38,6 +38,7 @@ export const Button = styled.button`
   margin-bottom: 20px;
   margin-top: 20px;
   padding: 10px 20px;
+  min-width: 130px;
   border: none;
   border-radius: 25px;
   color: #fff;

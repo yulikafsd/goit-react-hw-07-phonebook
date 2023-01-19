@@ -1,48 +1,78 @@
 import { Box } from 'styles/Box';
 import { AiFillCloseCircle } from 'react-icons/ai';
-import { Item, Text, Button } from 'components/contactList/ContactList.styled';
+import { BiLoaderCircle } from 'react-icons/bi';
 import {
-  selectIsLoading,
+  Item,
+  Wrapper,
+  Text,
+  Number,
+  Button,
+} from 'components/contactList/ContactList.styled';
+import {
   selectError,
   selectFilteredContacts,
+  selectIsDeleting,
 } from 'redux/selectors';
 import { useSelector, useDispatch } from 'react-redux';
-import { useEffect } from 'react';
-import { deleteContact, fetchContacts } from 'redux/operations';
+import { useState, useEffect } from 'react';
+import { deleteContact } from 'redux/operations';
 
 export function ContactList() {
-  const isLoading = useSelector(selectIsLoading);
+  const isDeleting = useSelector(selectIsDeleting);
   const error = useSelector(selectError);
   const searchResults = useSelector(selectFilteredContacts);
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    dispatch(fetchContacts());
-  }, [dispatch]);
+  const [contactId, setContactId] = useState('');
 
   const handleClick = contactId => {
     dispatch(deleteContact(contactId));
+    setContactId(contactId);
   };
+
+  useEffect(() => {
+    if (!isDeleting && contactId !== '') {
+      setContactId('');
+    }
+  }, [contactId, isDeleting]);
 
   return (
     <div>
-      {error && <p>Oops, {error}. Try reloading the page.</p>}
-      {isLoading && !error && <p>Loading contacts...</p>}
+      {error && (
+        <Box as="p" fontSize={14}>
+          Oops, {error}. Try reloading the page.
+        </Box>
+      )}
       {searchResults.length > 0 && (
         <Box as="ul" textAlign="left">
           {searchResults.map(({ id, name, number }) => {
             return (
               <Item key={id}>
-                <Text>{`${name}: ${number}`}</Text>
-                <Button type="button" onClick={() => handleClick(id)}>
-                  <AiFillCloseCircle size="18px" color="white" fill="#00bcd5" />
+                <Wrapper>
+                  <Text>{name}</Text>
+                  <Number>{number}</Number>
+                </Wrapper>
+                <Button
+                  type="button"
+                  disabled={isDeleting}
+                  onClick={() => handleClick(id)}
+                >
+                  {isDeleting && contactId === id ? (
+                    <BiLoaderCircle size="20px" color="white" fill="#00bcd5" />
+                  ) : (
+                    <AiFillCloseCircle
+                      size="20px"
+                      color="white"
+                      fill="#00bcd5"
+                    />
+                  )}
                 </Button>
               </Item>
             );
           })}
         </Box>
       )}
-      {!isLoading && !error && searchResults.length === 0 && (
+      {!isDeleting && !error && searchResults.length === 0 && (
         <Box as="p" fontSize={14}>
           No contacts
         </Box>
