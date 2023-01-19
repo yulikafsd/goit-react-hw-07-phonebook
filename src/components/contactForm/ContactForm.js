@@ -7,7 +7,7 @@ import {
 import { Formik, Form } from 'formik';
 import * as yup from 'yup';
 import { useDispatch, useSelector } from 'react-redux';
-import { selectContacts } from 'redux/selectors';
+import { selectContacts, selectError } from 'redux/selectors';
 import { addContact } from 'redux/operations';
 import { nanoid } from 'nanoid';
 
@@ -38,6 +38,7 @@ export const ContactForm = () => {
   const nameInputId = nanoid();
   const numberInputId = nanoid();
   const contacts = useSelector(selectContacts);
+  const error = useSelector(selectError);
   const dispatch = useDispatch();
 
   const handleSubmit = (values, { resetForm }) => {
@@ -54,7 +55,7 @@ export const ContactForm = () => {
         name: values.name.trim(),
         number: values.number.trim(),
       };
-      dispatch(addContact(newContact)) && resetForm();
+      dispatch(addContact(newContact)) && !error && resetForm();
     }
   };
 
