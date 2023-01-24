@@ -8,17 +8,12 @@ import {
   Number,
   Button,
 } from 'components/contactList/ContactList.styled';
-import {
-  selectError,
-  selectFilteredContacts,
-  selectOperation,
-} from 'redux/selectors';
+import { selectFilteredContacts, selectOperation } from 'redux/selectors';
 import { useSelector, useDispatch } from 'react-redux';
 import { deleteContact } from 'redux/operations';
 
 export function ContactList() {
   const operation = useSelector(selectOperation);
-  const error = useSelector(selectError);
   const searchResults = useSelector(selectFilteredContacts);
   const dispatch = useDispatch();
 
@@ -28,9 +23,9 @@ export function ContactList() {
 
   return (
     <div>
-      {error && (
+      {searchResults.length === 0 && (
         <Box as="p" fontSize={14}>
-          Oops, {error}. Try reloading the page.
+          No contacts
         </Box>
       )}
       {searchResults.length > 0 && (
@@ -60,11 +55,6 @@ export function ContactList() {
               </Item>
             );
           })}
-        </Box>
-      )}
-      {operation !== 'fetch' && !error && searchResults.length === 0 && (
-        <Box as="p" fontSize={14}>
-          No contacts
         </Box>
       )}
     </div>

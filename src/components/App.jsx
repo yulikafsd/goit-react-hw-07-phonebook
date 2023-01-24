@@ -14,8 +14,13 @@ export function App() {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(fetchContacts())
-    
+    const controller = new AbortController();
+    const signal = controller.signal;
+    dispatch(fetchContacts(signal))
+
+    return () => {
+      controller.abort();
+    };
   }, [dispatch]);
     
   return (
@@ -25,7 +30,7 @@ export function App() {
       <h2>Contacts</h2>
       <Filter />
       {operation === 'fetch' && <p>Loading contacts...</p>}
-      {error && <p>Oops, {error}. Try reload the page.</p>}
+      {error && error !== 'canceled' && <p>Oops, {error}. Try reload the page.</p>}
       {!error && <ContactList />}
       <ToastContainer/>
     </Box>

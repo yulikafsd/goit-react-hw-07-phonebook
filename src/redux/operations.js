@@ -12,15 +12,17 @@ axios.defaults.baseURL = 'https://63c84bea075b3f3a91de67f7.mockapi.io';
 
 export const fetchContacts = createAsyncThunk(
   'contacts/fetchAll',
-  async (_, { rejectWithValue }) => {
+  async (signal, { rejectWithValue }) => {
     try {
-      const response = await axios.get('/contacts');
+      const response = await axios.get('/contacts', { signal });
       response.data.length > 0
         ? loadMessage(response.data)
         : emptyListMessage();
       return response.data;
     } catch (e) {
-      errorMessage(e.message);
+      if (!e.message === 'canceled') {
+        errorMessage(e.message);
+      }
       return rejectWithValue(e.message);
     }
   }
