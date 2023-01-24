@@ -6,7 +6,7 @@ import {
 } from 'components/contactForm/ContactForm.styled.js';
 import { Formik, Form } from 'formik';
 import { useDispatch, useSelector } from 'react-redux';
-import { selectContacts, selectError, selectIsAdding } from 'redux/selectors';
+import { selectContacts, selectError, selectOperation } from 'redux/selectors';
 import { addContact } from 'redux/operations';
 import { nanoid } from 'nanoid';
 import { schema } from 'constants/schema';
@@ -23,7 +23,7 @@ export const ContactForm = () => {
   const numberInputId = nanoid();
   const contacts = useSelector(selectContacts);
   const error = useSelector(selectError);
-  const isAdding = useSelector(selectIsAdding);
+  const operation = useSelector(selectOperation);
   const dispatch = useDispatch();
 
   const handleSubmit = (values, { resetForm }) => {
@@ -55,8 +55,8 @@ export const ContactForm = () => {
         <Label htmlFor={numberInputId}>Number</Label>
         <StyledField type="tel" name="number" required id={numberInputId} />
         <StyledError name="number" component="div" />
-        <Button type="submit" disabled={isAdding}>
-          {isAdding ? 'Adding...' : 'Add Contact'}
+        <Button type="submit" disabled={operation === 'add'}>
+          {operation === 'add' ? 'Adding...' : 'Add Contact'}
         </Button>
       </Form>
     </Formik>

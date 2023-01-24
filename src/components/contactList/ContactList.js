@@ -11,30 +11,20 @@ import {
 import {
   selectError,
   selectFilteredContacts,
-  selectIsDeleting,
+  selectOperation,
 } from 'redux/selectors';
 import { useSelector, useDispatch } from 'react-redux';
-import { useState, useEffect } from 'react';
 import { deleteContact } from 'redux/operations';
 
 export function ContactList() {
-  const isDeleting = useSelector(selectIsDeleting);
+  const operation = useSelector(selectOperation);
   const error = useSelector(selectError);
   const searchResults = useSelector(selectFilteredContacts);
   const dispatch = useDispatch();
 
-  const [contactId, setContactId] = useState('');
-
   const handleClick = contactId => {
     dispatch(deleteContact(contactId));
-    setContactId(contactId);
   };
-
-  useEffect(() => {
-    if (!isDeleting && contactId !== '') {
-      setContactId('');
-    }
-  }, [contactId, isDeleting]);
 
   return (
     <div>
@@ -54,10 +44,10 @@ export function ContactList() {
                 </Wrapper>
                 <Button
                   type="button"
-                  disabled={isDeleting}
+                  disabled={operation === id}
                   onClick={() => handleClick(id)}
                 >
-                  {isDeleting && contactId === id ? (
+                  {operation === id ? (
                     <BiLoaderCircle size="20px" color="white" fill="#00bcd5" />
                   ) : (
                     <AiFillCloseCircle
@@ -72,7 +62,7 @@ export function ContactList() {
           })}
         </Box>
       )}
-      {!isDeleting && !error && searchResults.length === 0 && (
+      {operation !== 'fetch' && !error && searchResults.length === 0 && (
         <Box as="p" fontSize={14}>
           No contacts
         </Box>

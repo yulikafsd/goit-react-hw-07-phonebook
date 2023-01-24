@@ -5,17 +5,17 @@ import { Filter } from "components/filter/Filter";
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
 import { fetchContacts } from 'redux/operations';
-import { selectError, selectIsLoading } from "redux/selectors";
+import { selectError, selectOperation } from "redux/selectors";
 import { ToastContainer } from 'react-toastify';
 
 export function App() {
   const error = useSelector(selectError);
-  const isLoading = useSelector(selectIsLoading);
-
+  const operation = useSelector(selectOperation);
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(fetchContacts());
+    dispatch(fetchContacts())
+    
   }, [dispatch]);
     
   return (
@@ -24,9 +24,9 @@ export function App() {
       <ContactForm />
       <h2>Contacts</h2>
       <Filter />
-      {isLoading && <p>Loading contacts...</p>}
+      {operation === 'fetch' && <p>Loading contacts...</p>}
       {error && <p>Oops, {error}. Try reload the page.</p>}
-      {!isLoading && !error && <ContactList />}
+      {!error && <ContactList />}
       <ToastContainer/>
     </Box>
     );

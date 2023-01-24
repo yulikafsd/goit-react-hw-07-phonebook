@@ -10,9 +10,8 @@ export const addMessage = name =>
 export const deleteMessage = name =>
   toast.success(`The contact ${name} was deleted!`);
 
-export const emptyListMessage = toast.info(
-  `There are no contacts in your phonebook`
-);
+export const emptyListMessage = () =>
+  toast.info(`There are no contacts in your phonebook`);
 
 export const changeNameMessage = name =>
   toast.warn(`Contact ${name} already exists. Please, choose another name`);
